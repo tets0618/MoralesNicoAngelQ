@@ -1,0 +1,526 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ffe0ec, #fff0f5, #ffd6e7);
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    padding: 25px 12px;
+}
+
+.container {
+    width: 100%;
+    max-width: 850px;
+    text-align: center;
+}
+
+h1 {
+    color: #d63384;
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #a64d79;
+    margin-bottom: 25px;
+    font-size: 16px;
+}
+
+/* POKEMON */
+
+.letter-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    min-height: 280px;
+}
+
+.pokemon {
+    width: 125px;
+    height: 125px;
+    object-fit: contain;
+    animation: none;
+}
+
+.snorlax-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -5px;
+}
+
+.snorlax {
+    width: 115px;
+    height: 115px;
+    object-fit: contain;
+    animation: none;
+}
+
+/* ENVELOPE */
+
+.envelope-container {
+    width: 300px;
+    height: 205px;
+    perspective: 1000px;
+}
+
+.envelope {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.envelope-back {
+    position: absolute;
+    inset: 0;
+    background: #f5a4c1;
+    z-index: 1;
+}
+
+/* LETTER PAPER */
+
+.letter {
+    position: absolute;
+    width: 88%;
+    height: 90%;
+    left: 6%;
+    top: 5%;
+    background: #fff9ed;
+    padding: 9px;
+    border-radius: 5px;
+    border: 2px solid #e9b9c9;
+    z-index: 2;
+    color: #87576a;
+    text-align: left;
+    transition: transform 0.8s ease;
+    font-size: 12px;
+    line-height: 1.5;
+    overflow-y: auto;
+    box-shadow: 0 3px 8px rgba(120, 65, 90, 0.15);
+}
+
+/* Decorative paper interior */
+
+.paper-design {
+    position: relative;
+    min-height: 100%;
+    border: 1px dashed #e7a4bc;
+    padding: 12px;
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0px,
+            transparent 26px,
+            rgba(225, 158, 180, 0.25) 27px,
+            transparent 28px
+        );
+}
+
+.paper-top,
+.paper-bottom {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    color: #e47b9e;
+    font-size: 17px;
+    margin: 3px 0 10px;
+}
+
+.paper-top span:nth-child(2),
+.paper-bottom span:nth-child(2) {
+    color: #d9a15c;
+}
+
+.letter h2 {
+    font-size: 19px;
+    color: #d63384;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.paper-line {
+    height: 2px;
+    background: #e9a6bd;
+    width: 55%;
+    margin: 0 auto 12px;
+    border-radius: 5px;
+}
+
+.letter p {
+    margin-bottom: 10px;
+}
+
+.signature {
+    text-align: right;
+    font-weight: bold;
+    margin-top: 12px;
+    color: #d63384;
+}
+
+.paper-bottom {
+    margin-top: 12px;
+    margin-bottom: 0;
+}
+
+/* ENVELOPE FOLDS */
+
+.left-fold {
+    position: absolute;
+    inset: 0;
+    background: #f8b4cd;
+    clip-path: polygon(0 0, 50% 50%, 0 100%);
+    z-index: 3;
+}
+
+.right-fold {
+    position: absolute;
+    inset: 0;
+    background: #f8b4cd;
+    clip-path: polygon(100% 0, 50% 50%, 100% 100%);
+    z-index: 3;
+}
+
+.bottom-fold {
+    position: absolute;
+    inset: 0;
+    background: #ed8fb2;
+    clip-path: polygon(0 100%, 50% 48%, 100% 100%);
+    z-index: 4;
+}
+
+.flap {
+    position: absolute;
+    inset: 0;
+    background: #f3a0bd;
+    clip-path: polygon(0 0, 100% 0, 50% 55%);
+    transform-origin: top center;
+    transition: transform 0.6s ease;
+    z-index: 5;
+}
+
+.heart {
+    position: absolute;
+    z-index: 6;
+    color: #e75480;
+    font-size: 35px;
+    top: 43%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s ease;
+}
+
+/* OPEN ENVELOPE */
+
+.envelope.open {
+    overflow: visible;
+}
+
+.envelope.open .flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
+
+.envelope.open .letter {
+    transform: translateY(-180px);
+    z-index: 7;
+}
+
+.envelope.open .heart {
+    opacity: 0;
+}
+
+/* MAIN BUTTON */
+
+button {
+    border: none;
+    background: #e75480;
+    color: white;
+    padding: 13px 28px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #d63384;
+    transform: scale(1.05);
+}
+
+button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+#status {
+    color: #a64d79;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+footer {
+    margin-top: 25px;
+    color: #c05a86;
+    font-size: 13px;
+}
+
+/* QUIZ POPUP */
+
+.quiz-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(80, 30, 55, 0.55);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    padding: 15px;
+}
+
+.quiz-overlay[hidden] {
+    display: none;
+}
+
+.quiz-box {
+    background: #fff7fa;
+    width: 100%;
+    max-width: 470px;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 35px rgba(150, 50, 100, 0.25);
+    text-align: center;
+}
+
+.quiz-heart {
+    font-size: 35px;
+    margin-bottom: 8px;
+}
+
+.quiz-box h2 {
+    color: #d63384;
+    margin-bottom: 8px;
+}
+
+.quiz-subtitle {
+    color: #a64d79;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+/* PROGRESS BAR */
+
+.progress {
+    margin-bottom: 20px;
+}
+
+#progressText {
+    display: block;
+    color: #a64d79;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.progress-track {
+    height: 8px;
+    width: 100%;
+    background: #f9d4e2;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 33.33%;
+    background: #e75480;
+    border-radius: 20px;
+    transition: width 0.4s ease;
+}
+
+/* QUESTION PAGES */
+
+.question-step {
+    display: none;
+    text-align: left;
+    padding: 15px;
+    background: #ffe8f0;
+    border-radius: 12px;
+    animation: fadeIn 0.4s ease;
+}
+
+.question-step.active {
+    display: block;
+}
+
+.question-step h3 {
+    color: #d63384;
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+.question-step p {
+    color: #a83261;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.question-step label {
+    display: block;
+    color: #78415a;
+    font-size: 14px;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.question-step label:hover {
+    background: #ffd6e7;
+}
+
+.question-step input {
+    margin-right: 7px;
+    accent-color: #e75480;
+}
+
+/* WRONG ANSWER */
+
+.question-step label.wrong {
+    color: #e53935;
+    background: #ffe0e0;
+    animation: shake 0.4s ease;
+}
+
+.question-step label.wrong input {
+    accent-color: #e53935;
+}
+
+/* CORRECT ANSWER */
+
+.question-step label.correct {
+    color: #238443;
+    background: #dcfce7;
+}
+
+.question-step label.correct input {
+    accent-color: #238443;
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+
+    20%, 60% {
+        transform: translateX(-6px);
+    }
+
+    40%, 80% {
+        transform: translateX(6px);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+#feedback {
+    color: #d63384;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 12px;
+    min-height: 18px;
+    text-align: center;
+}
+
+.submit-btn {
+    width: 100%;
+    margin-top: 15px;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    h1 {
+        font-size: 25px;
+    }
+
+    .letter-area {
+        gap: 0;
+        min-height: 230px;
+    }
+
+    .pokemon {
+        width: 75px;
+        height: 75px;
+    }
+
+    .envelope-container {
+        width: 230px;
+        height: 160px;
+    }
+
+    .letter {
+        padding: 7px;
+        font-size: 10px;
+    }
+
+    .paper-design {
+        padding: 8px;
+    }
+
+    .letter h2 {
+        font-size: 15px;
+        margin-bottom: 6px;
+    }
+
+    .paper-top,
+    .paper-bottom {
+        font-size: 13px;
+        margin-bottom: 6px;
+    }
+
+    .envelope.open .letter {
+        transform: translateY(-145px);
+    }
+
+    .heart {
+        font-size: 28px;
+    }
+
+    .snorlax {
+        width: 95px;
+        height: 95px;
+    }
+
+    .quiz-box {
+        padding: 20px 15px;
+    }
+
+    .question-step label {
+        font-size: 13px;
+    }
+}
